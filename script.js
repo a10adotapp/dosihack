@@ -44,6 +44,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
             const action = document.createElement("a");
 
             action.href = `https://market.store.dosi.world/ja-JP/nfts/${nftItem.contractId}-${nftItem.tokenType}-${nftItem.tokenIndex}/`;
+            action.target = "_blank";
             action.textContent = `[${[
               nftItem.property["\u{d83c}\u{dfa8}\u{30d7}\u{30ec}\u{30b9}\u{72b6}\u{6cc1}"] ?? "",
               nftItem.property["\u{2699}\u{30ae}\u{30a2}\u{30ec}\u{30a2}\u{30ea}\u{30c6}\u{30a3}"] ?? "",
