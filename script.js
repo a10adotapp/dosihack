@@ -7,10 +7,13 @@ db.version(1).stores({
 window.addEventListener("DOMContentLoaded", async (event) => {
   const dosiMidField = document.querySelector("#dosi-mid-field");
   const dosiMidSubmitButton = document.querySelector("#dosi-mid-submit-button");
+  const totalCountHelp = document.querySelector("#total-count-help");
   const nftItemList = document.querySelector("#nft-item-list");
 
   const user = await db.users.toCollection().reverse().first();
 
+  const numberFormat = Intl.NumberFormat();
+  
   if (user) {
     dosiMidField.value = user.dosiMid;
 
@@ -20,9 +23,10 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   dosiMidSubmitButton.addEventListener("click", async (event) => {
     await db.users.put({ dosiMid: dosiMidField.value });
 
+    totalCountHelp.textContent = "";
     nftItemList.innerHTML = "";
 
-    fetchData(user.dosiMid);
+    fetchData(dosiMidField.value);
   });
 
   async function fetchData(dosiMid) {
@@ -33,6 +37,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       });
 
       const responseData = await response.json();
+
+      totalCountHelp.textContent = `total: ${numberFormat.format(responseData.content[0].totalCount)}`;
 
       const fragment = document.createDocumentFragment();
 
